@@ -1,5 +1,11 @@
 "use strict";
 
+//window.addEventListener('beforeunload', function() {
+//    localStorage.removeItem('score');
+//});
+
+let scoreContent = document.querySelector('.score-content');
+updateScoreList();
 function getUserObj() {
     let score = localStorage.getItem('score');
     var obj = JSON.parse(score);
@@ -7,43 +13,43 @@ function getUserObj() {
 }
 
 if (localStorage.getItem('score') == null) {
-    localStorage.setItem('score', '{}');
+    localStorage.setItem('score', '[]');
 }
 
-// Инициализация объекта для хранения данных игроков и их рейтинга
-let players = {};
-
-document.querySelector('.menu-button.login').addEventListener('click', function() {
+document.querySelector('.menu-button.login').addEventListener('click', function () {
     let name = document.querySelector('.name-input').value;
-    
-    // Проверяем, есть ли игрок уже в списке
-    if (!players[name]) {
-        players[name] = { score: 0 }; // Добавляем нового игрока с нулевым счетом
-    }
-    
-    updateScoreList(); // Обновляем список участников
-});
-
-document.getElementById('open-score').addEventListener('click', function() {
+    clearScoreList();
+    addScore(name, 0);
     updateScoreList();
 });
 
-// Функция для обновления списка участников и их рейтинга на главной странице
-function updateScoreList() {
-    let scoreContent = document.querySelector('.score-content');
-    scoreContent.innerHTML = ''; // Очищаем текущий список
-    
-    for (let player in players) {
-        let playerItem = document.createElement('div');
-        playerItem.textContent = `${player}: ${players[player].score} баллов`;
-        scoreContent.appendChild(playerItem);
-    }
+function clearScoreList() {
+    scoreContent.innerHTML = '';
 }
 
-// Функция для начисления баллов за успешное прохождение уровня игроку
-function addPointsToPlayer(playerName, points) {
-    if (players[playerName]) {
-        players[playerName].score += points; // Увеличиваем счет игрока на указанное количество баллов
-        updateScoreList(); // Обновляем отображение списка участников
+
+function addScore(player, score) {
+    var scoreObj = getUserObj();
+    var index = scoreObj.findIndex((e) => {
+        return e.name == player;
+    });
+    if (index != -1) {
+        scoreObj[index].score += score;
+    } else {
+        scoreObj.push({ name: player, score: score });
     }
+    localStorage.setItem('score', JSON.stringify(scoreObj));
 }
+
+function updateScoreList() {
+    var obj = getUserObj();
+    console.log(obj)
+    for (let key in obj) {
+        let userElement = document.createElement('p');
+        userElement.textContent = `${obj[key].name}:${obj[key].score}`;
+        scoreContent.append(userElement);
+    }
+
+}
+
+

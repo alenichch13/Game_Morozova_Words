@@ -1,13 +1,15 @@
+.left-words {
+    display: flex;
+    flex-direction: column;
+}
 
-.left-words{
+.right-words {
     display: flex;
     flex-direction: column;
 }
-.right-words{
-    display: flex;
-    flex-direction: column;
-}
-.word-block{
+
+.word-block {
+    position: relative;
     font-size: 22px;
     margin: 0.5em 0;
     padding: 0.5em 1em;
@@ -17,36 +19,52 @@
     color: #ffffff;
 }
 
-.words-block{
+.words-block {
     padding: 3em 5em;
     border: 2px gray solid;
     border-radius: 10px;
     background-color: #dedede;
 }
-.word-block-selected{
-    transform: scale(1.1,1.1);
+
+.word-block-selected {
+    transform: scale(1.1, 1.1);
 }
-.word-block-right{
+
+.word-block-right {
     position: relative;
-    top:0px;
+    top: 0px;
     animation: wordsFall 1s linear;
     animation-fill-mode: forwards;
     background-color: rgb(255, 190, 190);
-    pointer-events:none;
+    pointer-events: none;
 }
-@keyframes wordsFall{
-    from{
+
+@keyframes wordsFall {
+    from {
         top: 0px;
         opacity: 1;
     }
-    to{
-        top:300px;
+
+    to {
+        top: 300px;
         opacity: 0;
     }
 }
-.word-block-wrong{
+
+.word-block-wrong {
     background-color: rgb(92, 24, 24);
 }
-html{
+
+html {
     height: 150%;
+}
+
+@keyframes wordsAnim {
+    from {
+        left: 0px;
+    }
+
+    to {
+        left: 100px;
+    }
 }

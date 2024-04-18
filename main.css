@@ -14,9 +14,8 @@ html,body{
    height: 100%;
 }
 body{
-    background-image: url(font.jpg);
+    background-image: url(images/font.jpg);
     background-size: no-repeat;
-
 }
 .score{
     position: absolute;
